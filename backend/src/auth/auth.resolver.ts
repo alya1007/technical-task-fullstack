@@ -1,9 +1,53 @@
-import { Query, Resolver } from '@nestjs/graphql';
+import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
+import { AuthService } from './auth.service';
+import { LoginResponse, RegisterResponse } from './types';
+import { LoginDto, RegisterDto } from './dto';
+import { BadRequestException } from '@nestjs/common';
+import { Request, Response } from 'express';
 
 @Resolver()
 export class AuthResolver {
-  @Query(() => String)
-  hello() {
-    return 'Hello, World!';
+  constructor(private readonly authService: AuthService) {}
+
+  @Mutation(() => RegisterResponse)
+  async register(
+    @Args('registerInput') registerDto: RegisterDto,
+    @Context() context: { res: Response },
+  ) {
+    if (registerDto.password !== registerDto.confirmPassword) {
+      throw new BadRequestException({
+        confirmPassword: 'Passwords do not match.',
+      });
+    }
+
+    const { user } = await this.authService.register(registerDto, context.res);
+    return { user };
+  }
+
+  @Mutation(() => LoginResponse)
+  async login(
+    @Args('loginInput') loginDto: LoginDto,
+    @Context() context: { res: Response },
+  ) {
+    const { user } = await this.authService.login(loginDto, context.res);
+    return { user };
+  }
+
+  @Mutation(() => String)
+  logout(@Context() context: { res: Response }) {
+    return this.authService.logout(context.res);
+  }
+
+  @Mutation(() => String)
+  async refreshToken(@Context() context: { req: Request; res: Response }) {
+    try {
+      return await this.authService.refreshToken(context.req, context.res);
+    } catch (error) {
+      const errorMessage =
+        typeof error === 'object' && error !== null && 'message' in error
+          ? (error as { message: string }).message
+          : 'An error occurred';
+      throw new BadRequestException(errorMessage);
+    }
   }
 }
