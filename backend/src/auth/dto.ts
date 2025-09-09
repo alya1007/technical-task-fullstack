@@ -10,7 +10,6 @@ export class RegisterDto {
 
   @Field()
   @IsNotEmpty({ message: 'Confirm Password is required.' })
-  // must be the same as password
   confirmPassword: string;
 
   @Field()

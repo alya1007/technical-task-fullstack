@@ -20,8 +20,7 @@ export class AuthResolver {
       });
     }
 
-    const { user } = await this.authService.register(registerDto, context.res);
-    return { user };
+    return this.authService.register(registerDto, context.res);
   }
 
   @Mutation(() => LoginResponse)
