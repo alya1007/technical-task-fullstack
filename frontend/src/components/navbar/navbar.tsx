@@ -24,7 +24,11 @@ const Navbar = () => {
 	};
 	return (
 		<nav className={styles.nav}>
-			<div className={styles.buttonsContainer}>
+			<div
+				className={`${styles.buttonsContainer} ${
+					!isLoggedIn && styles.multipleButtons
+				}`}
+			>
 				{isLoggedIn ? (
 					<>
 						<p className={styles.welcome}>{email}</p>

@@ -12,6 +12,7 @@
 	align-self: center;
 	margin: 0 auto;
 	max-width: 350px;
+	min-width: 225px;
 	color: #172234;
 }
 
@@ -99,4 +100,10 @@
 	height: 100%;
 	width: 100%;
 	object-fit: cover;
+}
+
+@media (max-width: 768px) {
+	.imageContainer {
+		display: none;
+	}
 }
