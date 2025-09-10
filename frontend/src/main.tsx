@@ -1,10 +1,41 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.tsx";
+import { ApolloProvider } from "@apollo/client/react";
+import { apolloClient } from "./apolloClient.ts";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "./pages/home.tsx";
+import Login from "./pages/login.tsx";
+import Register from "./pages/register.tsx";
+import MainLayout from "./layouts/main-layout.tsx";
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+const router = createBrowserRouter([
+	{
+		path: "/",
+		element: <MainLayout />,
+		children: [
+			{
+				path: "/",
+				element: <Home />,
+			},
+			{
+				path: "/login",
+				element: <Login />,
+			},
+			{
+				path: "/register",
+				element: <Register />,
+			},
+		],
+	},
+]);
+
+createRoot(document.getElementById("root")!).render(
+	<StrictMode>
+		<ApolloProvider client={apolloClient}>
+			<RouterProvider router={router} />
+			<App />
+		</ApolloProvider>
+	</StrictMode>
+);
