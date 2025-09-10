@@ -1,18 +1,25 @@
 import { useMutation } from "@apollo/client/react";
 import { useUserStore } from "../stores/userStore";
 import { REGISTER_USER } from "../graphql/mutations/register";
-import { AuthForm, type AuthValues } from "../components/login-form/auth-form";
+import { AuthForm } from "../components/login-form/auth-form";
 import { useNavigate } from "react-router-dom";
+import type {
+	RegisterUserMutation,
+	RegisterUserMutationVariables,
+} from "../gql/graphql";
 
-type RegisterRes = { register: { user: { id: string; email: string } } };
 const Register = () => {
 	const setUser = useUserStore((s) => s.setUser);
-	const [mutate] = useMutation<RegisterRes>(REGISTER_USER, {
+	const [mutate] = useMutation<RegisterUserMutation>(REGISTER_USER, {
 		fetchPolicy: "no-cache",
 	});
 	const navigate = useNavigate();
 
-	const onSubmit = async ({ email, password, confirmPassword }: AuthValues) => {
+	const onSubmit = async ({
+		email,
+		password,
+		confirmPassword,
+	}: RegisterUserMutationVariables) => {
 		try {
 			const { data } = await mutate({
 				variables: { email, password, confirmPassword },

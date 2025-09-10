@@ -3,6 +3,10 @@ import styles from "./auth-form.module.css";
 import { Button } from "../ui/button/button";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import type {
+	LoginUserMutationVariables,
+	RegisterUserMutationVariables,
+} from "../../gql/graphql";
 
 export type AuthMode = "login" | "register";
 
@@ -12,12 +16,19 @@ export type AuthValues = {
 	confirmPassword?: string;
 };
 
-type AuthFormProps = {
-	mode: AuthMode;
-	title: string;
-	text: string;
-	onSubmit: (values: AuthValues) => Promise<void> | void;
-};
+type AuthFormProps =
+	| {
+			mode: "login";
+			onSubmit: (values: LoginUserMutationVariables) => void | Promise<void>;
+			title: string;
+			text: string;
+	  }
+	| {
+			mode: "register";
+			onSubmit: (values: RegisterUserMutationVariables) => void | Promise<void>;
+			title: string;
+			text: string;
+	  };
 
 export const AuthForm = ({ mode, title, text, onSubmit }: AuthFormProps) => {
 	const {
@@ -47,7 +58,19 @@ export const AuthForm = ({ mode, title, text, onSubmit }: AuthFormProps) => {
 			</div>
 			<form
 				className={styles.form}
-				onSubmit={handleSubmit(onSubmit)}
+				onSubmit={handleSubmit((values) => {
+					if (mode === "login") {
+						const { email, password } = values;
+						onSubmit({ email, password });
+					} else {
+						const { email, password, confirmPassword } = values;
+						onSubmit({
+							email,
+							password,
+							confirmPassword: confirmPassword ?? "",
+						});
+					}
+				})}
 				noValidate
 			>
 				<div className={styles.fields}>

@@ -6,6 +6,7 @@ type UserState = {
 	id: string | undefined;
 	email: string | undefined;
 	setUser: (user: User) => void;
+	clearUser: () => void;
 };
 
 export const useUserStore = create<UserState>()(
@@ -15,6 +16,7 @@ export const useUserStore = create<UserState>()(
 			email: undefined,
 			setUser: (user: User) =>
 				set({ id: user.id || undefined, email: user.email }),
+			clearUser: () => set({ id: undefined, email: undefined }),
 		}),
 		{
 			name: "user-storage",
