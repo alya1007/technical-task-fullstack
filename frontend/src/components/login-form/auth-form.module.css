@@ -1,0 +1,102 @@
+.container {
+	display: flex;
+	height: calc(100vh - 80px);
+	gap: 10px;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	width: 24%;
+	height: 354px;
+	align-self: center;
+	margin: 0 auto;
+	max-width: 350px;
+	color: #172234;
+}
+
+.fields {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	margin-bottom: 10px;
+}
+
+.field {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.title {
+	font-size: 1.75rem;
+	align-self: flex-start;
+}
+
+.label {
+	font-size: 0.875rem;
+	font-weight: 700;
+	align-self: flex-start;
+}
+
+.input {
+	padding: 14px 20px;
+	background: #e0e0e0;
+	border: 2px solid #e0e0e0;
+	border-radius: 5px;
+	height: 48px;
+}
+
+.input::placeholder {
+	color: #172234;
+	opacity: 0.5;
+	font-family: Lato, sans-serif;
+}
+
+.input:focus {
+	outline: 2px solid #b29f7e;
+	outline-offset: 2px;
+}
+
+.link {
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: #b29f7e;
+	text-decoration: none;
+	align-self: flex-end;
+	font-family: Lato, sans-serif;
+}
+
+.error {
+	color: red;
+	font-size: 0.75rem;
+	font-family: Lato, sans-serif;
+	align-self: flex-start;
+}
+
+.hint {
+	font-size: 0.85rem;
+}
+
+.submitButton {
+	width: 100% !important;
+	margin-top: 30px;
+}
+
+.redirect {
+	margin-top: 10px;
+	display: flex;
+	justify-content: center;
+	font-family: Lato, sans-serif;
+}
+
+.imageContainer {
+	width: 60%;
+	height: auto;
+}
+
+.img {
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+}

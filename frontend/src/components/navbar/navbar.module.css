@@ -2,10 +2,19 @@
 	height: 80px;
 	width: 100%;
 	background: #172234;
-	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	display: flex;
+	position: sticky;
+	top: 0;
+	z-index: 10;
+}
+
+.welcome {
+	color: #b29f7e;
+	font-size: 1rem;
+	font-family: Lato, sans-serif;
+	font-weight: 700;
+	padding-left: 20px;
 }
 
 .buttonsContainer {
@@ -15,6 +24,7 @@
 	padding: 18px 80px;
 	align-items: center;
 	justify-content: end;
+	height: 100%;
 }
 
 .buttonLink {
