@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client/react";
 import { useUserStore } from "../stores/userStore";
 import { REGISTER_USER } from "../graphql/mutations/register";
-import { AuthForm } from "../components/login-form/auth-form";
+import { AuthForm } from "../components/auth-form/auth-form";
 import { useNavigate } from "react-router-dom";
 import type {
 	RegisterUserMutation,
