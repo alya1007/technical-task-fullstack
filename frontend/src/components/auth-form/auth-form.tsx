@@ -22,15 +22,23 @@ type AuthFormProps =
 			onSubmit: (values: LoginUserMutationVariables) => void | Promise<void>;
 			title: string;
 			text: string;
+			error?: Error | null;
 	  }
 	| {
 			mode: "register";
 			onSubmit: (values: RegisterUserMutationVariables) => void | Promise<void>;
 			title: string;
 			text: string;
+			error?: Error | null;
 	  };
 
-export const AuthForm = ({ mode, title, text, onSubmit }: AuthFormProps) => {
+export const AuthForm = ({
+	mode,
+	title,
+	text,
+	onSubmit,
+	error,
+}: AuthFormProps) => {
 	const {
 		register,
 		handleSubmit,
@@ -160,7 +168,15 @@ export const AuthForm = ({ mode, title, text, onSubmit }: AuthFormProps) => {
 				>
 					{isSubmitting ? "Please wait..." : text}
 				</Button>
-
+				{error && (
+					<p className={styles.submitError}>
+						{error.message === "Unauthorized Exception"
+							? "Wrong email or password."
+							: error.message
+							? error.message
+							: "An error occurred"}
+					</p>
+				)}
 				<div className={styles.redirect}>
 					{mode === "login" ? (
 						<p className={styles.hint}>

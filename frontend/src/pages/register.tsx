@@ -10,7 +10,7 @@ import type {
 
 const Register = () => {
 	const setUser = useUserStore((s) => s.setUser);
-	const [mutate] = useMutation<RegisterUserMutation>(REGISTER_USER, {
+	const [mutate, { error }] = useMutation<RegisterUserMutation>(REGISTER_USER, {
 		fetchPolicy: "no-cache",
 	});
 	const navigate = useNavigate();
@@ -40,6 +40,7 @@ const Register = () => {
 				title="Register"
 				text="Create an account"
 				onSubmit={onSubmit}
+				error={error}
 			/>
 		</div>
 	);

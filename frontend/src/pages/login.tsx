@@ -10,7 +10,7 @@ import type {
 
 const Login = () => {
 	const setUser = useUserStore((s) => s.setUser);
-	const [mutate] = useMutation<LoginUserMutation>(LOGIN_USER, {
+	const [mutate, { error }] = useMutation<LoginUserMutation>(LOGIN_USER, {
 		fetchPolicy: "no-cache",
 	});
 	const navigate = useNavigate();
@@ -29,7 +29,13 @@ const Login = () => {
 
 	return (
 		<div>
-			<AuthForm mode="login" title="Login" text="Sign in" onSubmit={onSubmit} />
+			<AuthForm
+				mode="login"
+				title="Login"
+				text="Sign in"
+				onSubmit={onSubmit}
+				error={error}
+			/>
 		</div>
 	);
 };
