@@ -9,6 +9,8 @@ import { join } from 'path';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TokenService } from './token/token.service';
 import { User } from './user/user.type';
+import { DealModule } from './deal/deal.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
@@ -52,6 +54,11 @@ import { User } from './user/user.type';
     }),
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+    DealModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(process.cwd(), 'static'),
+      serveRoot: '/static',
     }),
   ],
   controllers: [AppController],

@@ -20,3 +20,16 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Deal {
+  id           String   @id @default(cuid())
+  name         String
+  price        Decimal  @db.Decimal(18, 2)
+  ticket       Decimal  @db.Decimal(18, 2)
+  yieldPercent Float
+  daysLeft     Int
+  soldPercent  Float
+  imageUrl     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
