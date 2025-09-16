@@ -1,5 +1,5 @@
 .section {
-	background-image: url("../../../public/hero.png");
+	background-image: url("/hero.png");
 	background-size: cover;
 	background-position: center;
 	height: calc(100vh - 80px);

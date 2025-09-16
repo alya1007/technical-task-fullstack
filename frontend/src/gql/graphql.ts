@@ -34,6 +34,20 @@ export type Scalars = {
 	DateTime: { input: any; output: any };
 };
 
+export type Deal = {
+	__typename?: "Deal";
+	createdAt?: Maybe<Scalars["DateTime"]["output"]>;
+	daysLeft: Scalars["Int"]["output"];
+	id: Scalars["String"]["output"];
+	imageUrl: Scalars["String"]["output"];
+	name: Scalars["String"]["output"];
+	price: Scalars["Float"]["output"];
+	soldPercent: Scalars["Float"]["output"];
+	ticket: Scalars["Float"]["output"];
+	updatedAt?: Maybe<Scalars["DateTime"]["output"]>;
+	yieldPercent: Scalars["Float"]["output"];
+};
+
 export type LoginDto = {
 	email: Scalars["String"]["input"];
 	password: Scalars["String"]["input"];
@@ -62,6 +76,7 @@ export type MutationRegisterArgs = {
 
 export type Query = {
 	__typename?: "Query";
+	deals: Array<Deal>;
 	hello: Scalars["String"]["output"];
 };
 
@@ -114,6 +129,25 @@ export type RegisterUserMutation = {
 		__typename?: "RegisterResponse";
 		user?: { __typename?: "User"; id: string; email: string } | null;
 	};
+};
+
+export type GetDealsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetDealsQuery = {
+	__typename?: "Query";
+	deals: Array<{
+		__typename?: "Deal";
+		id: string;
+		name: string;
+		price: number;
+		soldPercent: number;
+		ticket: number;
+		yieldPercent: number;
+		daysLeft: number;
+		imageUrl: string;
+		createdAt?: any | null;
+		updatedAt?: any | null;
+	}>;
 };
 
 export const LoginUserDocument = gql`
@@ -280,4 +314,82 @@ export type RegisterUserMutationResult =
 export type RegisterUserMutationOptions = Apollo.BaseMutationOptions<
 	RegisterUserMutation,
 	RegisterUserMutationVariables
+>;
+export const GetDealsDocument = gql`
+	query GetDeals {
+		deals {
+			id
+			name
+			price
+			soldPercent
+			ticket
+			yieldPercent
+			daysLeft
+			imageUrl
+			createdAt
+			updatedAt
+		}
+	}
+`;
+
+/**
+ * __useGetDealsQuery__
+ *
+ * To run a query within a React component, call `useGetDealsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetDealsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetDealsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetDealsQuery(
+	baseOptions?: Apollo.QueryHookOptions<GetDealsQuery, GetDealsQueryVariables>
+) {
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useQuery<GetDealsQuery, GetDealsQueryVariables>(
+		GetDealsDocument,
+		options
+	);
+}
+export function useGetDealsLazyQuery(
+	baseOptions?: Apollo.LazyQueryHookOptions<
+		GetDealsQuery,
+		GetDealsQueryVariables
+	>
+) {
+	const options = { ...defaultOptions, ...baseOptions };
+	return Apollo.useLazyQuery<GetDealsQuery, GetDealsQueryVariables>(
+		GetDealsDocument,
+		options
+	);
+}
+export function useGetDealsSuspenseQuery(
+	baseOptions?:
+		| Apollo.SkipToken
+		| Apollo.SuspenseQueryHookOptions<GetDealsQuery, GetDealsQueryVariables>
+) {
+	const options =
+		baseOptions === Apollo.skipToken
+			? baseOptions
+			: { ...defaultOptions, ...baseOptions };
+	return Apollo.useSuspenseQuery<GetDealsQuery, GetDealsQueryVariables>(
+		GetDealsDocument,
+		options
+	);
+}
+export type GetDealsQueryHookResult = ReturnType<typeof useGetDealsQuery>;
+export type GetDealsLazyQueryHookResult = ReturnType<
+	typeof useGetDealsLazyQuery
+>;
+export type GetDealsSuspenseQueryHookResult = ReturnType<
+	typeof useGetDealsSuspenseQuery
+>;
+export type GetDealsQueryResult = Apollo.QueryResult<
+	GetDealsQuery,
+	GetDealsQueryVariables
 >;
