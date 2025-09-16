@@ -14,10 +14,7 @@ const formatSpaced = (value: number | string) => {
 };
 
 const DealCard = ({ deal }: DealCardProps) => {
-	const apiUrl = import.meta.env?.VITE_API_URL_BASE ?? "http://localhost:3000";
-	const imageUrl = deal.imageUrl
-		? `${apiUrl}${deal.imageUrl}`
-		: `${apiUrl}/default-deal.jpg`;
+	const imageUrl = deal.imageUrl || "/static/default-deal-image.jpg";
 	return (
 		<div
 			className={styles.dealCard}

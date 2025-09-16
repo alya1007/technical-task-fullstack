@@ -8,11 +8,11 @@ import { HttpLink } from "@apollo/client/link/http";
 import type { ExecutionResult, GraphQLError } from "graphql";
 import { useUserStore } from "./stores/userStore";
 
-const GRAPHQL_URL =
-	import.meta.env?.VITE_API_URL ?? "http://localhost:3000/graphql";
+// const GRAPHQL_URL =
+// 	import.meta.env?.VITE_API_URL ?? "http://localhost:3000/graphql";
 
 const httpLink = new HttpLink({
-	uri: GRAPHQL_URL,
+	uri: "/graphql",
 	credentials: "include",
 });
 
