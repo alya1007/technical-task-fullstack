@@ -1,0 +1,12 @@
+{
+	"rewrites": [
+		{
+			"source": "/graphql",
+			"destination": "https://deals-finder-backend.onrender.com/graphql"
+		},
+		{
+			"source": "/static/:path*",
+			"destination": "https://deals-finder-backend.onrender.com/static/:path*"
+		}
+	]
+}
