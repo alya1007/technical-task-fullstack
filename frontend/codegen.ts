@@ -1,19 +1,15 @@
 import type { CodegenConfig } from "@graphql-codegen/cli";
-
+import "dotenv/config";
 const config: CodegenConfig = {
+	overwrite: true,
 	schema: "http://localhost:3000/graphql",
-	documents: ["src/graphql/**/*.ts"],
+	documents: ["src/**/*.{ts,tsx,gql,graphql}", "!src/gql/**"],
 	ignoreNoDocuments: true,
 	generates: {
-		"./src/gql/": {
+		"src/gql/": {
 			preset: "client",
-			plugins: [
-				"typescript",
-				"typescript-operations",
-				"typescript-react-apollo",
-			],
+			plugins: [],
 		},
 	},
 };
-
 export default config;
